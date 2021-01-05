@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Card,
   CardContent,
@@ -34,6 +34,11 @@ export default function Login() {
   const classes = useStyles()
   const history = useHistory()
 
+  const [account, setAccount] = useState({
+    username: 'admin',
+    password: '1234',
+  })
+
   const goToRegister = () => history.push('/users/register')
 
   return (
@@ -54,6 +59,10 @@ export default function Login() {
               margin="normal"
               required
               fullWidth
+              value={account.username}
+              onChange={(e) => {
+                setAccount({ ...account, username: e.target.value })
+              }}
               name="username"
               id="username"
               label="Username"
@@ -65,13 +74,16 @@ export default function Login() {
               margin="normal"
               required
               fullWidth
+              value={account.password}
+              onChange={(e) => {
+                setAccount({ ...account, password: e.target.value })
+              }}
               name="password"
-              label="Password"
-              type="password"
+              label="password"
               id="password"
+              type="password"
               autoComplete="current-password"
             />
-
             <Button
               type="submit"
               fullWidth
@@ -89,6 +101,7 @@ export default function Login() {
             >
               Register
             </Button>
+            #Debug {JSON.stringify(account)}
           </form>
         </CardContent>
       </Card>

@@ -126,7 +126,7 @@ export default function Header() {
             className={classes.title}
             onClick={homePage}
           >
-            Stock
+            Stock App
           </Typography>
 
           <Button onClick={goToLogin} color="inherit">
