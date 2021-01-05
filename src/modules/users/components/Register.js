@@ -9,8 +9,9 @@ import {
   Container,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import logo_auth from 'assets/images/authen_header.jpg'
 import { useHistory } from 'react-router-dom'
+import { Formik } from 'formik'
+import logo_auth from 'assets/images/authen_header.jpg'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,43 +48,69 @@ export default function Register() {
           <Typography gutterBottom variant="h5" component="h2">
             Register
           </Typography>
-          <form className={classes.form} noValidate>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="username"
-              id="username"
-              label="Username"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
+          <Formik
+            initialValues={{ username: 'admin', password: '1234' }}
+            onSubmit={(values, { setSubmitting }) => {
+              alert(JSON.stringify(values))
+            }}
+          >
+            {({
+              values,
+              errors,
+              touched,
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              isSubmitting,
+            }) => (
+              <form className={classes.form} noValidate onSubmit={handleSubmit}>
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  value={values.username}
+                  onChange={handleChange}
+                  name="username"
+                  id="username"
+                  label="Username"
+                  autoComplete="email"
+                  autoFocus
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  value={values.password}
+                  onChange={handleChange}
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                />
 
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Register
-            </Button>
-            <Button fullWidth size="small" color="primary" onClick={goToLogin}>
-              login
-            </Button>
-          </form>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                >
+                  Register
+                </Button>
+                <Button
+                  fullWidth
+                  size="small"
+                  color="primary"
+                  onClick={goToLogin}
+                >
+                  login
+                </Button>
+              </form>
+            )}
+          </Formik>
         </CardContent>
       </Card>
     </Container>
