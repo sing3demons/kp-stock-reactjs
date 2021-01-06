@@ -11,6 +11,8 @@ import {
 import { makeStyles } from '@material-ui/core/styles'
 import logo_auth from 'assets/images/authen_header.jpg'
 import { useHistory } from 'react-router-dom'
+import * as loginAcction from 'modules/users/actions'
+import { useDispatch } from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,6 +41,8 @@ export default function Login() {
     password: '1234',
   })
 
+  const dispatch = useDispatch()
+
   const goToRegister = () => history.push('/users/register')
 
   return (
@@ -53,7 +57,14 @@ export default function Login() {
           <Typography gutterBottom variant="h5" component="h2">
             Login
           </Typography>
-          <form className={classes.form} noValidate>
+          <form
+            className={classes.form}
+            noValidate
+            onSubmit={(e) => {
+              e.preventDefault()
+              dispatch(loginAcction.login({ ...account, history }))
+            }}
+          >
             <TextField
               variant="outlined"
               margin="normal"
