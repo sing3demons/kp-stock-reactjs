@@ -12,8 +12,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 import clsx from 'clsx'
 import { useDispatch } from 'react-redux'
 import { useHistory, withRouter } from 'react-router-dom'
-import * as loginActions from 'modules/users/actions'
-import Content from './Content'
+import * as loginActions from 'modules/actions/login.action'
 
 const drawerWidth = 240
 const useStyles = makeStyles((theme) => ({
@@ -78,7 +77,6 @@ const Header = (props) => {
           </Button>
         </Toolbar>
       </AppBar>
-   
     </div>
   )
 }

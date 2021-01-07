@@ -12,6 +12,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { useHistory } from 'react-router-dom'
 import { Formik } from 'formik'
 import logo_auth from 'assets/images/authen_header.jpg'
+import Axios from 'axios'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,7 +52,13 @@ export default function Register() {
           <Formik
             initialValues={{ username: 'admin', password: '1234' }}
             onSubmit={(values, { setSubmitting }) => {
-              alert(JSON.stringify(values))
+              Axios.post(
+                'http://localhost:8085/api/v2/authen/register',
+                values
+              ).then((result) => {
+                console.log(result.data)
+              })
+              // alert(JSON.stringify(values))
             }}
           >
             {({

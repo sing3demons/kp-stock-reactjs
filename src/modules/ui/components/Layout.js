@@ -31,10 +31,10 @@ export default function Layout() {
   return (
     <>
       <CssBaseline></CssBaseline>
-      {loginReducer && (
+      {loginReducer.result && (
         <Header handleDrawerOpen={handleDrawerOpen} open={openDrawer}></Header>
       )}
-      {loginReducer && (
+      {loginReducer.result && (
         <Menu open={openDrawer} handleDrawerClose={handleDrawerClose}></Menu>
       )}
       <div className={classes.content}>

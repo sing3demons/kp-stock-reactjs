@@ -11,7 +11,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles'
 import logo_auth from 'assets/images/authen_header.jpg'
 import { useHistory } from 'react-router-dom'
-import * as loginAcction from 'modules/users/actions'
+import * as loginAcction from 'modules/actions/login.action'
 import { useDispatch } from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({

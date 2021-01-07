@@ -1,4 +1,4 @@
-export const LOGIN_FETCHING = 'LOGIN_FETCHING'
+const LOGIN_FETCHING = 'LOGIN_FETCHING'
 export const LOGIN_FAILED = 'LOGIN_FAILED'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGOUT = 'LOGOUT'
@@ -26,8 +26,8 @@ export const login = ({ username, password, history }) => {
     dispatch(setStateToFetching())
     setTimeout(() => {
       dispatch(setStateToSuccess('ok'))
+      history.push('/stock')
     }, 1000)
-    history.push('/stock')
   }
 }
 
