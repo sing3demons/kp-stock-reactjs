@@ -1,7 +1,9 @@
-export const LOGIN_FETCHING = 'LOGIN_FETCHING'
-export const LOGIN_FAILED = 'LOGIN_FAILED'
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
-export const LOGOUT = 'LOGOUT'
+import {
+  LOGIN_FETCHING,
+  LOGIN_FAILED,
+  LOGIN_SUCCESS,
+  LOGOUT,
+} from '../Constants'
 
 const initialState = {
   result: null,

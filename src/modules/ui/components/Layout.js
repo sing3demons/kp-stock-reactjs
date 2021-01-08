@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import Content from './Content'
 import Header from './Header'
 import Menu from './Menu'
-import { useSelector } from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -26,17 +25,14 @@ export default function Layout() {
   const handleDrawerOpen = () => {
     setOpenDrawer(true)
   }
-  const loginReducer = useSelector(({ loginReducer }) => loginReducer)
 
   return (
     <>
       <CssBaseline></CssBaseline>
-      {loginReducer.result && (
-        <Header handleDrawerOpen={handleDrawerOpen} open={openDrawer}></Header>
-      )}
-      {loginReducer.result && (
-        <Menu open={openDrawer} handleDrawerClose={handleDrawerClose}></Menu>
-      )}
+
+      <Header handleDrawerOpen={handleDrawerOpen} open={openDrawer}></Header>
+
+      <Menu open={openDrawer} handleDrawerClose={handleDrawerClose}></Menu>
       <div className={classes.content}>
         <Content></Content>
       </div>

@@ -10,9 +10,10 @@ import {
 
 import MenuIcon from '@material-ui/icons/Menu'
 import clsx from 'clsx'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, withRouter } from 'react-router-dom'
 import * as loginActions from 'modules/actions/login.action'
+import loginReducer from 'modules/reducers/login.reducer'
 
 const drawerWidth = 240
 const useStyles = makeStyles((theme) => ({
@@ -45,7 +46,7 @@ const Header = (props) => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const history = useHistory()
-
+  const loginReducer = useSelector(({ loginReducer }) => loginReducer)
   return (
     <div className={classes.root}>
       <AppBar
@@ -55,15 +56,17 @@ const Header = (props) => {
         })}
       >
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-            onClick={props.handleDrawerOpen}
-          >
-            <MenuIcon />
-          </IconButton>
+          {loginReducer.result && !loginReducer.error && (
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="menu"
+              onClick={props.handleDrawerOpen}
+            >
+              <MenuIcon />
+            </IconButton>
+          )}
           <Typography variant="h6" className={classes.title}>
             News
           </Typography>

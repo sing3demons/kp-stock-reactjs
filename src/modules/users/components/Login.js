@@ -12,7 +12,8 @@ import { makeStyles } from '@material-ui/core/styles'
 import logo_auth from 'assets/images/authen_header.jpg'
 import { useHistory } from 'react-router-dom'
 import * as loginAcction from 'modules/actions/login.action'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { Alert, AlertTitle } from '@material-ui/lab'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,13 +36,14 @@ const useStyles = makeStyles((theme) => ({
 export default function Login() {
   const classes = useStyles()
   const history = useHistory()
+  const dispatch = useDispatch()
+  const loginReducer = useSelector(({ loginReducer }) => loginReducer)
 
   const [account, setAccount] = useState({
     username: 'admin',
     password: '1234',
   })
 
-  const dispatch = useDispatch()
 
   const goToRegister = () => history.push('/users/register')
 
@@ -95,6 +97,14 @@ export default function Login() {
               type="password"
               autoComplete="current-password"
             />
+
+            {loginReducer.error && (
+              <Alert severity="error">
+                <AlertTitle>Error</AlertTitle>
+                {loginReducer.result}
+              </Alert>
+            )}
+
             <Button
               type="submit"
               fullWidth
@@ -112,7 +122,6 @@ export default function Login() {
             >
               Register
             </Button>
-            #Debug {JSON.stringify(account)}
           </form>
         </CardContent>
       </Card>

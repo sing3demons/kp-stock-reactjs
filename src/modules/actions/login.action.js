@@ -1,7 +1,11 @@
-const LOGIN_FETCHING = 'LOGIN_FETCHING'
-export const LOGIN_FAILED = 'LOGIN_FAILED'
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
-export const LOGOUT = 'LOGOUT'
+import {
+  LOGIN_FETCHING,
+  LOGIN_FAILED,
+  LOGIN_SUCCESS,
+  LOGOUT,
+  server,
+} from '../Constants'
+import { httpClient } from 'modules/utils/HttpClient'
 
 export const setStateToFetching = () => ({
   type: LOGIN_FETCHING,
@@ -22,12 +26,19 @@ export const setStateToLogout = () => ({
 })
 
 export const login = ({ username, password, history }) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(setStateToFetching())
-    setTimeout(() => {
+    const { data } = await httpClient.post(server.LOGIN_URL, {
+      username,
+      password,
+    })
+    if (data.result == 'ok') {
+      // localStorage.setItem(LOGIN_STATUS, "ok")
       dispatch(setStateToSuccess('ok'))
       history.push('/stock')
-    }, 1000)
+    } else {
+      dispatch(setStateToFailed('failed'))
+    }
   }
 }
 
