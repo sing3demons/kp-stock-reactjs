@@ -1,5 +1,6 @@
 import React from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
+import { makeStyles } from '@material-ui/core/styles'
 import UserRoutes from 'modules/users/components/Routes'
 import StockRouter from 'modules/stock/components/Routes'
 import Index from './Index'
@@ -31,18 +32,25 @@ const LoginRoute = ({ component: Component, ...rest }) => (
   />
 )
 
+const useStyles = makeStyles((theme) => ({
+  content: {
+    padding: theme.spacing(2, 0),
+  },
+}))
+
 export default function Routes() {
+  const classes = useStyles()
   return (
-    <Switch>
-      <PrivateRoute path="/stock">
-        <StockRouter></StockRouter>
-      </PrivateRoute>
-      <LoginRoute path="/users" component={UserRoutes} />
-      <PrivateRoute path="/report" component={ReportRouter} />
-      <PrivateRoute exact path="/" component={Index} />
-      <Route>
-        <div>Page not found</div>
-      </Route>
-    </Switch>
+    <div className={classes.content}>
+      <Switch>
+        <PrivateRoute path="/stock" component={StockRouter} />
+        <LoginRoute path="/users" component={UserRoutes} />
+        <PrivateRoute path="/report" component={ReportRouter} />
+        <PrivateRoute exact path="/" component={Index} />
+        <Route>
+          <div>Page not found</div>
+        </Route>
+      </Switch>
+    </div>
   )
 }

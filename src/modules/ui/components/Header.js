@@ -48,7 +48,7 @@ const Header = (props) => {
   const loginReducer = useSelector(({ loginReducer }) => loginReducer)
 
   const goToHome = () => history.push('/')
-  
+
   return (
     <div className={classes.root}>
       <AppBar
@@ -72,14 +72,25 @@ const Header = (props) => {
           <Typography variant="h6" className={classes.title} onClick={goToHome}>
             News
           </Typography>
-          <Button
-            color="inherit"
-            onClick={() => {
-              dispatch(loginActions.logout({ history }))
-            }}
-          >
-            Logout
-          </Button>
+          {loginActions.isLoggedIn() ? (
+            <Button
+              color="inherit"
+              onClick={() => {
+                dispatch(loginActions.logout({ history }))
+              }}
+            >
+              Logout
+            </Button>
+          ) : (
+            <Button
+              color="inherit"
+              onClick={() => {
+                history.push('/users')
+              }}
+            >
+              Login
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
     </div>
