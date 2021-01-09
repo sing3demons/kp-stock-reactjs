@@ -11,6 +11,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import InboxIcon from '@material-ui/icons/MoveToInbox'
 import MailIcon from '@material-ui/icons/Mail'
+import { useHistory } from 'react-router-dom'
 
 const drawerWidth = 240
 const useStyles = makeStyles((theme) => ({
@@ -73,6 +74,8 @@ const useStyles = makeStyles((theme) => ({
 export default function Menu(props) {
   const classes = useStyles()
   const theme = useTheme()
+  const history = useHistory()
+  const subMenu = ['stock', 'report']
 
   return (
     <div>
@@ -97,8 +100,12 @@ export default function Menu(props) {
         <img height={250} src={`${process.env.PUBLIC_URL}/menu_banner.jpg`} />
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
+          {subMenu.map((text, index) => (
+            <ListItem
+              button
+              key={text}
+              onClick={() => history.push(`/${text}`)}
+            >
               <ListItemIcon>
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
               </ListItemIcon>
@@ -107,16 +114,6 @@ export default function Menu(props) {
           ))}
         </List>
         <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
       </Drawer>
     </div>
   )

@@ -1,12 +1,14 @@
 import React from 'react'
 import { Route, Switch, useRouteMatch } from 'react-router-dom'
-import Stock from './Stock'
+import Report from './components/Report'
 
 export default function Routes() {
   const path = useRouteMatch()
   return (
     <Switch>
-      <Route path={path} component={Stock} />
+      <Route path={path}>
+        <Report></Report>
+      </Route>
     </Switch>
   )
 }

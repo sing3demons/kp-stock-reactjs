@@ -1,21 +1,31 @@
 import React from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Redirect, Route, Switch } from 'react-router-dom'
 import UserRoutes from 'modules/users/components/Routes'
-import StockRouter from 'modules/stock/components/Routes';
+import StockRouter from 'modules/stock/components/Routes'
 import Index from './Index'
+import ReportRouter from 'modules/report/Routes'
+import * as loginAcction from 'modules/actions/login.action'
+
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={(props) =>
+      loginAcction.isLoggedIn() ? (
+        <Component {...props} />
+      ) : (
+        <Redirect to="/users/login" />
+      )
+    }
+  />
+)
 
 export default function Routes() {
   return (
     <Switch>
-      <Route path="/users">
-        <UserRoutes></UserRoutes>
-      </Route>
-      <Route path="/stock">
-       <StockRouter></StockRouter>
-      </Route>
-      <Route path="/">
-        <Index></Index>
-      </Route>
+      <PrivateRoute path="/stock" component={StockRouter} />
+      <Route path="/users" component={UserRoutes} />
+      <PrivateRoute path="/report" component={ReportRouter} />
+      <PrivateRoute exact path="/" component={Index} />
       <Route>
         <div>Page not found</div>
       </Route>

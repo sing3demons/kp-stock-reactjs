@@ -2,6 +2,7 @@ export const LOGIN_FETCHING = "LOGIN_FETCHING";
 export const LOGIN_FAILED = "LOGIN_FAILED";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGOUT = "LOGOUT";
+export const LOGIN_STATUS = 'LOGIN_STATUS'
 
 export const apiUrl = "http://localhost:8085/api/v2";
 export const imageUrl = "http://localhost:8085";

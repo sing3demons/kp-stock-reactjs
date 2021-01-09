@@ -37,13 +37,12 @@ export default function Login() {
   const classes = useStyles()
   const history = useHistory()
   const dispatch = useDispatch()
-  const loginReducer = useSelector(({ loginReducer }) => loginReducer)
+  const loginReducer = useSelector((state) => state.loginReducer)
 
   const [account, setAccount] = useState({
     username: 'admin',
     password: '1234',
   })
-
 
   const goToRegister = () => history.push('/users/register')
 

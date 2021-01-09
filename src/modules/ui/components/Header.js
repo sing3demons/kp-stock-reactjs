@@ -13,7 +13,6 @@ import clsx from 'clsx'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, withRouter } from 'react-router-dom'
 import * as loginActions from 'modules/actions/login.action'
-import loginReducer from 'modules/reducers/login.reducer'
 
 const drawerWidth = 240
 const useStyles = makeStyles((theme) => ({
