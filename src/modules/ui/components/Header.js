@@ -46,6 +46,9 @@ const Header = (props) => {
   const dispatch = useDispatch()
   const history = useHistory()
   const loginReducer = useSelector(({ loginReducer }) => loginReducer)
+
+  const goToHome = () => history.push('/')
+  
   return (
     <div className={classes.root}>
       <AppBar
@@ -66,7 +69,7 @@ const Header = (props) => {
               <MenuIcon />
             </IconButton>
           )}
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant="h6" className={classes.title} onClick={goToHome}>
             News
           </Typography>
           <Button

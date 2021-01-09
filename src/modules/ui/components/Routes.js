@@ -18,12 +18,26 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
     }
   />
 )
+const LoginRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={(props) =>
+      loginAcction.isLoggedIn() ? (
+        <Redirect to="/stock" />
+      ) : (
+        <Component {...props} />
+      )
+    }
+  />
+)
 
 export default function Routes() {
   return (
     <Switch>
-      <PrivateRoute path="/stock" component={StockRouter} />
-      <Route path="/users" component={UserRoutes} />
+      <PrivateRoute path="/stock">
+        <StockRouter></StockRouter>
+      </PrivateRoute>
+      <LoginRoute path="/users" component={UserRoutes} />
       <PrivateRoute path="/report" component={ReportRouter} />
       <PrivateRoute exact path="/" component={Index} />
       <Route>

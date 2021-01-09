@@ -6,7 +6,7 @@ export default function Routes() {
   const path = useRouteMatch()
   return (
     <Switch>
-      <Route path={path}>
+      <Route path={'/report'}>
         <Report></Report>
       </Route>
     </Switch>

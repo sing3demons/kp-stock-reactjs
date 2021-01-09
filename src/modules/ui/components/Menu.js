@@ -1,17 +1,23 @@
 import React from 'react'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
-import Drawer from '@material-ui/core/Drawer'
-import List from '@material-ui/core/List'
-import Divider from '@material-ui/core/Divider'
-import IconButton from '@material-ui/core/IconButton'
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
-import ChevronRightIcon from '@material-ui/icons/ChevronRight'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import InboxIcon from '@material-ui/icons/MoveToInbox'
-import MailIcon from '@material-ui/icons/Mail'
+import {
+  Drawer,
+  List,
+  Divider,
+  IconButton,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from '@material-ui/core'
+import {
+  ChevronLeft as ChevronLeftIcon,
+  ChevronRight as ChevronRightIcon,
+  MoveToInbox as InboxIcon,
+  Mail as MailIcon,
+} from '@material-ui/icons'
+
 import { useHistory } from 'react-router-dom'
+import menuBanner from 'assets/images/menu_banner.jpg'
 
 const drawerWidth = 240
 const useStyles = makeStyles((theme) => ({
@@ -97,7 +103,7 @@ export default function Menu(props) {
             )}
           </IconButton>
         </div>
-        <img height={250} src={`${process.env.PUBLIC_URL}/menu_banner.jpg`} />
+        <img alt="menu-banner" height={250} src={menuBanner} />
         <Divider />
         <List>
           {subMenu.map((text, index) => (
