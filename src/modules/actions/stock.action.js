@@ -33,6 +33,13 @@ const getProducts = () => {
   }
 }
 
+export const addProduct = (formData, history) => {
+  return async (dispatch) => {
+    await httpClient.post(server.PRODUCT_URL, formData)
+    history.goBack()
+  }
+}
+
 const doGetProducts = async (dispatch) => {
   try {
     let result = await httpClient.get(server.PRODUCT_URL)

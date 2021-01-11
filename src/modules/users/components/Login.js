@@ -7,6 +7,7 @@ import {
   Typography,
   TextField,
   Container,
+  CardActionArea,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import logo_auth from 'assets/images/authen_header.jpg'
@@ -17,6 +18,8 @@ import { Alert, AlertTitle } from '@material-ui/lab'
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    alignContent: 'center',
+    alignItems: 'center',
     maxWidth: 345,
   },
   media: {
@@ -26,8 +29,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
   content: {
-    flexGrow: 1,
-    display: 'flex',
+    // display: 'flex',
     padding: theme.spacing(2),
   },
 }))
@@ -46,7 +48,7 @@ export default function Login() {
   const goToRegister = () => history.push('/users/register')
 
   return (
-    <Container className={classes.content}>
+    <Container style={{ display: 'flex', justifyContent: 'center' }}>
       <Card className={classes.root}>
         <CardMedia
           className={classes.media}

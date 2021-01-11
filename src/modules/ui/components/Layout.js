@@ -49,14 +49,14 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    marginLeft: -480,
+    marginLeft: -drawerWidth,
   },
   contentShift: {
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    marginLeft: -330,
+    marginLeft: -480,
   },
 }))
 
@@ -84,7 +84,7 @@ export default function Layout(props) {
       <CssBaseline></CssBaseline>
       <Header handleDrawerOpen={handleDrawerOpen} open={openDrawer}></Header>
       <Menu open={openDrawer} handleDrawerClose={handleDrawerClose}></Menu>
-      <AppBar
+      {/* <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: props.open,
@@ -100,14 +100,14 @@ export default function Layout(props) {
         }}
       >
         <div className={classes.drawerHeader} />
-      </Drawer>
+      </Drawer> */}
       <main
         className={clsx(classes.content, {
           [classes.contentShift]:
             openDrawer && loginReducer.result && !loginReducer.error,
         })}
       >
-        <Container>
+        <Container style={{  justifyContent: 'center' }}>
           <Content />
         </Container>
       </main>
