@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import NumberFormat from 'react-number-format'
-import MaterialTable from 'material-table'
+import MaterialTable, { MTableToolbar } from 'material-table'
 import { makeStyles } from '@material-ui/core/styles'
-import { Typography } from '@material-ui/core'
+import { Button, Typography } from '@material-ui/core'
 import { imageUrl } from './../../Constants'
 import Moment from 'react-moment'
 import * as TableIcon from './TableIcons'
@@ -87,6 +88,24 @@ export default function Stock() {
         columns={columns}
         data={stockReducer.result ? stockReducer.result : []}
         title="Stock"
+        components={{
+          Toolbar: (props) => (
+            <div>
+              <MTableToolbar {...props} />
+              <div style={{ padding: '0px 10px' }}>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  component={Link}
+                  to="/stock/create"
+                >
+                  Create
+                </Button>
+              </div>
+            </div>
+          ),
+        }}
       />
     </>
   )
