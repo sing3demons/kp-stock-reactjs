@@ -49,6 +49,26 @@ const doGetProducts = async (dispatch) => {
   }
 }
 
+export const updateProduct = (formData, history) => {
+  return async (dispatch) => {
+    await httpClient.put(server.PRODUCT_URL, formData);
+    history.goBack();
+  };
+};
+
+export const getProductById = (id) => {
+  return async (dispatch) => {
+    try {
+      dispatch(setStateToFetching());
+      let result = await httpClient.get(`${server.PRODUCT_URL}/${id}`);
+      dispatch(setStateToSuccess(result.data));
+    } catch (error) {
+      alert(JSON.stringify(error));
+      dispatch(setStateToFailed());
+    }
+  };
+};
+
 export {
   STOCK_FETCHING,
   STOCK_SUCCESS,

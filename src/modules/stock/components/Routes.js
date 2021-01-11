@@ -9,7 +9,7 @@ export default function Routes() {
   return (
     <Switch>
       <Route path={`${path}/create`} component={StockCreate} />
-      <Route path={`${path}/edit`} component={StockEdit} />
+      <Route path={`${path}/edit/:id`} component={StockEdit} />
       <Route path={`${path}`} component={Stock} />
     </Switch>
   )

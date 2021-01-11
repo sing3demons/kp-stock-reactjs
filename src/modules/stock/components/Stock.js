@@ -2,17 +2,26 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import NumberFormat from 'react-number-format'
+import Moment from 'react-moment'
+
 import MaterialTable, { MTableToolbar } from 'material-table'
 import { makeStyles } from '@material-ui/core/styles'
 import { Button, Typography } from '@material-ui/core'
-import { imageUrl } from './../../Constants'
-import Moment from 'react-moment'
-import * as TableIcon from './TableIcons'
+import { DeleteOutline, Edit } from '@material-ui/icons'
+
+import * as tableIcon from './tableIcons'
 import * as stockActions from 'modules/actions/stock.action'
+import { imageUrl } from 'modules/Constants'
 
-const tableIcons = TableIcon
+const tableIcons = tableIcon
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '700',
+    marginTop: 0,
+  },
+}))
 
-export default function Stock() {
+export default function Stock(props) {
   const dispatch = useDispatch()
   const stockReducer = useSelector(({ stockReducer }) => stockReducer)
 
@@ -81,13 +90,32 @@ export default function Stock() {
     },
   ]
 
+  const actions = [
+    {
+      icon: () => <Edit />,
+      iconProps: { color: 'primary' },
+      tooltip: 'Edit',
+      onClick: (event, rowData) => {
+        props.history.push('/stock/edit/' + rowData.id)
+      },
+    },
+    {
+      icon: () => <DeleteOutline />,
+      iconProps: { color: 'action' },
+      tooltip: 'Delete',
+      onClick: (event, rowData) => {},
+    },
+  ]
+  const classes = useStyles()
+
   return (
-    <>
+    <div className={classes.root}>
       <MaterialTable
         icons={tableIcons.TableIcon}
         columns={columns}
         data={stockReducer.result ? stockReducer.result : []}
         title="Stock"
+        actions={actions}
         components={{
           Toolbar: (props) => (
             <div>
@@ -107,6 +135,6 @@ export default function Stock() {
           ),
         }}
       />
-    </>
+    </div>
   )
 }

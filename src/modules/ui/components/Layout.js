@@ -84,32 +84,16 @@ export default function Layout(props) {
       <CssBaseline></CssBaseline>
       <Header handleDrawerOpen={handleDrawerOpen} open={openDrawer}></Header>
       <Menu open={openDrawer} handleDrawerClose={handleDrawerClose}></Menu>
-      {/* <AppBar
-        position="fixed"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: props.open,
-        })}
-      />
-      <Drawer
-        className={classes.drawer}
-        variant="persistent"
-        anchor="left"
-        open={props.open}
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <div className={classes.drawerHeader} />
-      </Drawer> */}
+
       <main
         className={clsx(classes.content, {
           [classes.contentShift]:
             openDrawer && loginReducer.result && !loginReducer.error,
         })}
       >
-        <Container style={{  justifyContent: 'center' }}>
+        <div style={{ justifyContent: 'center' }}>
           <Content />
-        </Container>
+        </div>
       </main>
     </div>
   )
