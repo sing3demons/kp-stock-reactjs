@@ -76,7 +76,7 @@ export default function Layout(props) {
   }
 
   const handleDrawerOpen = () => {
-    setOpenDrawer(true)
+    setOpenDrawer(!openDrawer)
   }
 
   return (

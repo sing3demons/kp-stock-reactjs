@@ -1,12 +1,11 @@
-import {
-  LOGIN_FETCHING,
-  LOGIN_FAILED,
-  LOGIN_SUCCESS,
-  LOGOUT,
-  LOGIN_STATUS,
-  server,
-} from '../Constants'
 import { httpClient } from 'modules/utils/HttpClient'
+import { server } from '../Constants'
+
+export const LOGIN_FETCHING = 'LOGIN_FETCHING'
+export const LOGIN_FAILED = 'LOGIN_FAILED'
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+export const LOGOUT = 'LOGOUT'
+export const LOGIN_STATUS = 'LOGIN_STATUS'
 
 const setStateToFetching = () => ({
   type: LOGIN_FETCHING,
@@ -29,6 +28,7 @@ const setStateToLogout = () => ({
 const login = ({ username, password, history }) => {
   return async (dispatch) => {
     dispatch(setStateToFetching())
+
     const { data } = await httpClient.post(server.LOGIN_URL, {
       username,
       password,

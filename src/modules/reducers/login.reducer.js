@@ -3,7 +3,7 @@ import {
   LOGIN_FAILED,
   LOGIN_SUCCESS,
   LOGOUT,
-} from '../Constants'
+} from 'modules/actions/login.action'
 
 const initialState = {
   result: null,
