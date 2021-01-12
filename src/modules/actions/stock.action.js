@@ -49,25 +49,33 @@ const doGetProducts = async (dispatch) => {
   }
 }
 
-export const updateProduct = (formData, history) => {
+const updateProduct = (formData, history) => {
   return async (dispatch) => {
-    await httpClient.put(server.PRODUCT_URL, formData);
-    history.goBack();
-  };
-};
+    await httpClient.put(server.PRODUCT_URL, formData)
+    history.goBack()
+  }
+}
 
-export const getProductById = (id) => {
+const getProductById = (id) => {
   return async (dispatch) => {
     try {
-      dispatch(setStateToFetching());
-      let result = await httpClient.get(`${server.PRODUCT_URL}/${id}`);
-      dispatch(setStateToSuccess(result.data));
+      dispatch(setStateToFetching())
+      let result = await httpClient.get(`${server.PRODUCT_URL}/${id}`)
+      dispatch(setStateToSuccess(result.data))
     } catch (error) {
-      alert(JSON.stringify(error));
-      dispatch(setStateToFailed());
+      alert(JSON.stringify(error))
+      dispatch(setStateToFailed())
     }
-  };
-};
+  }
+}
+
+const deleteProduct = (id) => {
+  return async (dispatch) => {
+    debugger
+    await httpClient.delete(`/stock/product/${id}`)
+    await doGetProducts(dispatch)
+  }
+}
 
 export {
   STOCK_FETCHING,
@@ -82,4 +90,7 @@ export {
   setStateToFetching,
   setStateToFailed,
   getProducts,
+  updateProduct,
+  getProductById,
+  deleteProduct,
 }

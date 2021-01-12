@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import NumberFormat from 'react-number-format'
@@ -6,7 +6,15 @@ import Moment from 'react-moment'
 
 import MaterialTable, { MTableToolbar } from 'material-table'
 import { makeStyles } from '@material-ui/core/styles'
-import { Button, Typography } from '@material-ui/core'
+import {
+  Button,
+  Typography,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from '@material-ui/core'
 import { DeleteOutline, Edit } from '@material-ui/icons'
 
 import * as tableIcon from './tableIcons'
@@ -14,6 +22,7 @@ import * as stockActions from 'modules/actions/stock.action'
 import { imageUrl } from 'modules/Constants'
 
 const tableIcons = tableIcon
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '700',
@@ -24,6 +33,65 @@ const useStyles = makeStyles((theme) => ({
 export default function Stock(props) {
   const dispatch = useDispatch()
   const stockReducer = useSelector(({ stockReducer }) => stockReducer)
+
+  const [open, setOpen] = useState(false)
+  const [selectedItem, setSelectedItem] = useState(null)
+
+  const handleClickOpen = (item) => {
+    setSelectedItem(item)
+    setOpen(true)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
+
+  const showDeletionConfirmDlg = () => {
+    return selectedItem ? (
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          Are you sure to delete this item Id : {selectedItem.id}?
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}
+            >
+              <img
+                src={`${imageUrl}/images/${selectedItem.image}`}
+                style={{ width: 50, height: 50, borderRadius: '5%' }}
+              />
+              <span style={{ marginLeft: 20 }}>{selectedItem.name}</span>
+            </div>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button
+            onClick={() => {
+              dispatch(stockActions.deleteProduct(selectedItem.id))
+              handleClose()
+            }}
+            color="secondary"
+            autoFocus
+          >
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
+    ) : null
+  }
 
   useEffect(() => {
     dispatch(stockActions.getProducts())
@@ -103,7 +171,9 @@ export default function Stock(props) {
       icon: () => <DeleteOutline />,
       iconProps: { color: 'action' },
       tooltip: 'Delete',
-      onClick: (event, rowData) => {},
+      onClick: (event, rowData) => {
+        handleClickOpen(rowData)
+      },
     },
   ]
   const classes = useStyles()
@@ -111,6 +181,13 @@ export default function Stock(props) {
   return (
     <div className={classes.root}>
       <MaterialTable
+        options={{
+          search: true,
+          pageSize: 5,
+          rowStyle: (rowData, index) => ({
+            backgroundColor: index % 2 == 0 ? '#f8faf9' : '#fff',
+          }),
+        }}
         icons={tableIcons.TableIcon}
         columns={columns}
         data={stockReducer.result ? stockReducer.result : []}
@@ -135,6 +212,7 @@ export default function Stock(props) {
           ),
         }}
       />
+      {showDeletionConfirmDlg()}
     </div>
   )
 }
